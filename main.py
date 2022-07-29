@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
-
+from uuid import uuid4
 app = FastAPI()
 
 
@@ -24,6 +24,7 @@ def listar_filmes():
 @app.post("/cadmovies")
 def cadastrar_filmes(filme: Movies):
     banco.append(filme)
+    filme.Id = uuid4()
     return {f"Filme {filme.Titulo} cadastrado com sucesso!"}
 
 #rodar o programa, digitar isso no terminal : uvicorn main:app --reload

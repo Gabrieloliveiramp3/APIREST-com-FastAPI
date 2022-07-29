@@ -21,10 +21,17 @@ def home():
 def listar_filmes():
     return banco
 
+@app.get('/search/{movies_id}')
+def procurar_filmes(movies_id: str):
+    for movie in banco:
+        if movie.Id == movies_id:
+            return movie
+
+
 @app.post("/cadmovies")
 def cadastrar_filmes(filme: Movies):
     banco.append(filme)
-    filme.Id = uuid4()
+    filme.Id = str(uuid4())
     return {f"Filme {filme.Titulo} cadastrado com sucesso!"}
 
 #rodar o programa, digitar isso no terminal : uvicorn main:app --reload
